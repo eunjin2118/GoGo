@@ -44,7 +44,7 @@ class CareerFragment : Fragment() {
         dataList?.layoutManager = LinearLayoutManager(requireContext())
 
         db.collection("writes")
-            .whereEqualTo("category", "공모전")
+            .whereEqualTo("category", "진로")
             .get()
             .addOnSuccessListener { documents ->
                 val postItemList = arrayListOf<PostListItem>()
