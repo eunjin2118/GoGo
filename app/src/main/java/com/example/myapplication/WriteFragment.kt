@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ class WriteFragment : Fragment() {
         auth = Firebase.auth
 
         val db = Firebase.firestore
+        val currentUser = auth.currentUser
 
         val view = inflater.inflate(R.layout.fragment_write, container, false)
         val regisBtn = view.findViewById<Button>(R.id.btn_regis)
@@ -32,15 +34,28 @@ class WriteFragment : Fragment() {
         val categoryComboBox = view.findViewById<Spinner>(R.id.categoryComboBox)
         categoryComboBox.adapter = sAdapter
 
+        var nickname = ""
+
+        val docRef = db.collection("students").document(currentUser?.email.toString())
+
+        docRef.get()
+            .addOnSuccessListener { document ->
+                nickname = document.data!!.get("nickname").toString()
+            }
+
+            .addOnFailureListener { exception ->
+                Log.d(ContentValues.TAG, "get failed with ", exception)
+            }
+
         regisBtn.setOnClickListener {
             val title = view.findViewById<EditText>(R.id.input_title)
             val content = view.findViewById<EditText>(R.id.input_content)
 
-            val currentUser = auth.currentUser
             val email = currentUser?.email.toString()
 
             val write = hashMapOf(
                 "id" to email,
+                "nickname" to nickname,
                 "title" to title.text.toString(),
                 "content" to content.text.toString(),
                 "category" to categoryComboBox.selectedItem.toString(),

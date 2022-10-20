@@ -23,8 +23,6 @@ class CareerFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +38,6 @@ class CareerFragment : Fragment() {
 
         auth = Firebase.auth
 
-        val current = auth.currentUser
         val db = Firebase.firestore
 
 
@@ -54,14 +51,7 @@ class CareerFragment : Fragment() {
                 for (document in documents){
                     Log.d("mytag", "${document.id} => ${document.data}")
 
-                    val docRef = db.collection("students").document(current?.email.toString())
-                    var nickname = ""
-
-                    docRef.get()
-                        .addOnSuccessListener { document ->
-                            nickname = document.data!!.get("nickname").toString()
-                        }
-                    postItemList.add(PostListItem(nickname, document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
+                    postItemList.add(PostListItem(document.data!!.get("nickname").toString(), document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
                 }
                 val postListAdapter = PostListAdapter(postItemList)
                 dataList?.adapter = postListAdapter
