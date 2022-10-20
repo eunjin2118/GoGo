@@ -19,17 +19,11 @@ import com.google.firebase.ktx.Firebase
 class MyWriteFragment : Fragment() {
     private  lateinit var  auth: FirebaseAuth
 
-    //    private lateinit var binding : FragmentMyWriteBinding
-    // val itemList = arrayListOf<ListItem>()     //아이템 배열
-    // val listAdapter = MyWriteListAdapter(itemList)     // 어댑터
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_my_write, container, false)
-
-        // listAdapter.notifyDataSetChanged()
 
         return view
     }
@@ -43,8 +37,6 @@ class MyWriteFragment : Fragment() {
 
         val currentUser = auth.currentUser
         val db = Firebase.firestore
-
-        //val docRef_email = db.collection("students").document(currentUser?.email.toString())
 
         // 레이아웃 매니저와 어댑터 설정
         dataList?.layoutManager = LinearLayoutManager(requireContext())

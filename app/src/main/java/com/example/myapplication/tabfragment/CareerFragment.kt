@@ -1,21 +1,29 @@
 package com.example.myapplication.tabfragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.ListItem
 import com.example.myapplication.PostListItem
 import com.example.myapplication.R
 import com.example.myapplication.com.example.myapplication.PostListAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.time.LocalDate
 
 
 class CareerFragment : Fragment() {
+    private lateinit var auth: FirebaseAuth
 
-    val postItemList = arrayListOf<PostListItem>()
-    val postListAdapter = PostListAdapter(postItemList)
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,20 +31,43 @@ class CareerFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_career, container, false)
 
+    return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val dataList = view?.findViewById<RecyclerView>(R.id.post_list)
 
+        auth = Firebase.auth
+
+        val current = auth.currentUser
+        val db = Firebase.firestore
+
+
         dataList?.layoutManager = LinearLayoutManager(requireContext())
-        dataList?.adapter = postListAdapter
 
-        postItemList.add(PostListItem("일서연","학교생활", "성적 관련 질문", "전과목 평균 80이면 몇등급 나오나용??"))
-        postItemList.add(PostListItem("이서연","학교생활", "성적 관련 질문", "전과목 평균 80이면 몇등급 나오나용??"))
-        postItemList.add(PostListItem("삼서연","학교생활", "성적 관련 질문", "전과목 평균 80이면 몇등급 나오나용??"))
-        postItemList.add(PostListItem("사서연","학교생활", "성적 관련 질문", "전과목 평균 80이면 몇등급 나오나용??"))
+        db.collection("writes")
+            .whereEqualTo("category", "공모전")
+            .get()
+            .addOnSuccessListener { documents ->
+                val postItemList = arrayListOf<PostListItem>()
+                for (document in documents){
+                    Log.d("mytag", "${document.id} => ${document.data}")
+
+                    val docRef = db.collection("students").document(current?.email.toString())
+                    var nickname = ""
+
+                    docRef.get()
+                        .addOnSuccessListener { document ->
+                            nickname = document.data!!.get("nickname").toString()
+                        }
+                    postItemList.add(PostListItem(nickname, document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
+                }
+                val postListAdapter = PostListAdapter(postItemList)
+                dataList?.adapter = postListAdapter
+            }
 
 
-        postListAdapter.notifyDataSetChanged()
-
-    return view
     }
 
 }
