@@ -20,9 +20,6 @@ import com.google.firebase.ktx.Firebase
 class CompetitionFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,7 +54,5 @@ class CompetitionFragment : Fragment() {
                 val postListAdapter = PostListAdapter(postItemList)
                 dataList?.adapter = postListAdapter
             }
-
-
     }
 }
