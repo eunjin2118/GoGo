@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.PostListItem
 import com.example.myapplication.R
 import com.example.myapplication.com.example.myapplication.PostListAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class AllFragment : Fragment() {
-    
-    val postItemList = arrayListOf<PostListItem>()
-    val postListAdapter = PostListAdapter(postItemList)
+    private lateinit var auth: FirebaseAuth
     var count : Boolean = false;
     
     override fun onCreateView(
@@ -24,19 +26,9 @@ class AllFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_all, container, false)
-        val dataList = view?.findViewById<RecyclerView>(R.id.post_list)
         // val heartBtn = view.findViewById<Button>(R.id.heart_btn)
         // var heartNum : Int = heartBtn.text.toString().toInt()
         // Log.d("mytag", heartNum.toString())
-
-        dataList?.layoutManager = LinearLayoutManager(requireContext())
-        dataList?.adapter = postListAdapter
-
-        postItemList.add(PostListItem("일서연","학교생활", "성적 관련 질문", "전과목 평균 80이면 몇등급 나오나용??"))
-        postItemList.add(PostListItem("이서연","학교생활", "성적 관련 질문", "전과목 평균 80이면 몇등급 나오나용??"))
-        postItemList.add(PostListItem("삼서연","학교생활", "성적 관련 질문", "전과목 평균 80이면 몇등급 나오나용??"))
-        postItemList.add(PostListItem("사서연","학교생활", "성적 관련 질문", "전과목 평균 80이면 몇등급 나오나용??"))
-
 //        heartBtn.setOnClickListener {
 //            if(!count){    // 공감 추가 되야될때
 ////                heartNum++
@@ -48,10 +40,34 @@ class AllFragment : Fragment() {
 //                count = false
 //            }
 //        }
-
-        postListAdapter.notifyDataSetChanged()
         
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val dataList = view?.findViewById<RecyclerView>(R.id.post_list)
+
+        auth = Firebase.auth
+
+        val db = Firebase.firestore
+
+
+        dataList?.layoutManager = LinearLayoutManager(requireContext())
+
+        db.collection("writes")
+            .get()
+            .addOnSuccessListener { documents ->
+                val postItemList = arrayListOf<PostListItem>()
+                for (document in documents){
+                    Log.d("mytag", "${document.id} => ${document.data}")
+
+                    postItemList.add(PostListItem(document.data!!.get("nickname").toString(), document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
+                }
+                val postListAdapter = PostListAdapter(postItemList)
+                dataList?.adapter = postListAdapter
+            }
     }
 
 }
