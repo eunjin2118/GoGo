@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.PostListItem
 import com.example.myapplication.R
 import com.example.myapplication.com.example.myapplication.PostListAdapter
+import com.example.myapplication.container.HomeContainerFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -67,6 +69,14 @@ class AllFragment : Fragment() {
                 }
                 val postListAdapter = PostListAdapter(postItemList)
                 dataList?.adapter = postListAdapter
+
+                postListAdapter.setItemClickListener(object: PostListAdapter.OnItemClickListener{
+                    override fun onClick(v: View, position: Int) {
+                        Toast.makeText(view.context,
+                            "버튼 클릭됨", Toast.LENGTH_SHORT).show()
+                        (parentFragment as HomeContainerFragment).toComment()
+                    }
+                })
             }
     }
 

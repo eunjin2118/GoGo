@@ -75,7 +75,7 @@
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="1"
+            android:text="공감"
             android:textColor="#FF0000"
             android:backgroundTint="#D8D8D8"
             app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,9 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.myapplication.container.GoTempleContainerFragment
+import com.example.myapplication.container.HomeContainerFragment
+import com.example.myapplication.container.UserContainerFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

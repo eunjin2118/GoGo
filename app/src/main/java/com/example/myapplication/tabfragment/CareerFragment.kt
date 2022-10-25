@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.ListItem
@@ -22,14 +24,17 @@ import java.time.LocalDate
 class CareerFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_career, container, false)
 
-    return view
+//        view.findViewById<Button>(R.id.comment_btn).setOnClickListener {
+//            Log.d("mytag", "댓글 버튼 눌림")
+//        }
+        
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +43,7 @@ class CareerFragment : Fragment() {
 
         auth = Firebase.auth
 
+        val current = auth.currentUser
         val db = Firebase.firestore
 
 
@@ -51,10 +57,26 @@ class CareerFragment : Fragment() {
                 for (document in documents){
                     Log.d("mytag", "${document.id} => ${document.data}")
 
-                    postItemList.add(PostListItem(document.data!!.get("nickname").toString(), document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
+                    val docRef = db.collection("students").document(current?.email.toString())
+                    var nickname = ""
+
+                    docRef.get()
+                        .addOnSuccessListener { document ->
+                            nickname = document.data!!.get("nickname").toString()
+                        }
+                    postItemList.add(PostListItem(nickname, document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
                 }
+
+
                 val postListAdapter = PostListAdapter(postItemList)
                 dataList?.adapter = postListAdapter
+
+                postListAdapter.setItemClickListener(object: PostListAdapter.OnItemClickListener{
+                    override fun onClick(v: View, position: Int) {
+                        Toast.makeText(view.context,
+                        "버튼 클릭됨", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
 
 

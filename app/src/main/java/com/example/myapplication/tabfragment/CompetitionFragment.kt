@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.PostListItem
@@ -53,6 +54,13 @@ class CompetitionFragment : Fragment() {
                 }
                 val postListAdapter = PostListAdapter(postItemList)
                 dataList?.adapter = postListAdapter
+
+                postListAdapter.setItemClickListener(object: PostListAdapter.OnItemClickListener{
+                    override fun onClick(v: View, position: Int) {
+                        Toast.makeText(view.context,
+                            "버튼 클릭됨", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
     }
 }
