@@ -6,19 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.ListItem
-import com.example.myapplication.PostListItem
+import com.example.myapplication.item.PostListItem
 import com.example.myapplication.R
-import com.example.myapplication.com.example.myapplication.PostListAdapter
+import com.example.myapplication.Adapter.PostListAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.time.LocalDate
 
 
 class CareerFragment : Fragment() {

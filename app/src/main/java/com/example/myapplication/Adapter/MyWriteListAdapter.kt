@@ -1,6 +1,6 @@
-package com.example.myapplication.com.example.myapplication
+package com.example.myapplication.Adapter
 
-import com.example.myapplication.ListItem
+import com.example.myapplication.item.ListItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ class MyWriteListAdapter(val itemList: ArrayList<ListItem>):
     RecyclerView.Adapter<MyWriteListAdapter.ViewHolder>(){
 
     // (1) 아이템 레이아웃과 결합
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyWriteListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mywrite, parent, false)
         return ViewHolder(view)
     }
@@ -21,7 +21,7 @@ class MyWriteListAdapter(val itemList: ArrayList<ListItem>):
         return itemList.size
     }
     // (3) View에 내용 입력
-    override fun onBindViewHolder(holder: MyWriteListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = itemList[position].name
         holder.category.text = itemList[position].category
     }

@@ -1,20 +1,18 @@
-package com.example.myapplication.com.example.myapplication
+package com.example.myapplication.Adapter
 
-import com.example.myapplication.ListItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.CommentListItem
-import com.example.myapplication.PostListItem
+import com.example.myapplication.item.CommentListItem
 import com.example.myapplication.R
 
 class CommentListAdapter(val itemList: ArrayList<CommentListItem>):
     RecyclerView.Adapter<CommentListAdapter.ViewHolder>(){
 
     // (1) 아이템 레이아웃과 결합
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
         return ViewHolder(view)
     }
@@ -23,7 +21,7 @@ class CommentListAdapter(val itemList: ArrayList<CommentListItem>):
         return itemList.size
     }
     // (3) View에 내용 입력
-    override fun onBindViewHolder(holder: CommentListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = itemList[position].name
         holder.date.text = itemList[position].date
         holder.content.text = itemList[position].content

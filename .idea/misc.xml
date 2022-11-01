@@ -4,15 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/drawable/ic_ellipse_12.xml" value="0.1" />
+        <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/drawable/radius_btn.xml" value="0.1" />
+        <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/activity_comment.xml" value="0.1526293287729799" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/custom_comment.xml" value="0.25" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/dd.xml" value="0.10924750679963735" />
+        <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/et_link_back1.xml" value="0.1" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/fragment_all.xml" value="0.22" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/fragment_career.xml" value="0.18" />
-        <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/fragment_comment.xml" value="0.13644605621033545" />
+        <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/fragment_comment.xml" value="0.22" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/fragment_competition.xml" value="0.1876870457460453" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/fragment_container.xml" value="0.1881145788798632" />
         <entry key="..\:/Users/Mirim/AndroidStudioProjects/GoGo/app/src/main/res/layout/fragment_dream.xml" value="0.22" />

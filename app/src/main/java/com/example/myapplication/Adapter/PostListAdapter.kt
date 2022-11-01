@@ -1,19 +1,14 @@
-package com.example.myapplication.com.example.myapplication
+package com.example.myapplication.Adapter
 
-import android.app.Activity
 import android.util.Log
-import com.example.myapplication.ListItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.PostListItem
+import com.example.myapplication.item.PostListItem
 import com.example.myapplication.R
-import com.example.myapplication.container.HomeContainerFragment
-import kotlin.math.log
 
 class PostListAdapter(val itemList: ArrayList<PostListItem>):
     RecyclerView.Adapter<PostListAdapter.ViewHolder>(){
@@ -21,7 +16,7 @@ class PostListAdapter(val itemList: ArrayList<PostListItem>):
 
 
     // (1) 아이템 레이아웃과 결합
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
 
         return ViewHolder(view)
@@ -31,7 +26,7 @@ class PostListAdapter(val itemList: ArrayList<PostListItem>):
         return itemList.size
     }
     // (3) View에 내용 입력
-    override fun onBindViewHolder(holder: PostListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = itemList[position].name
         holder.kind.text = itemList[position].kind
         holder.title.text = itemList[position].title

@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.PostListItem
+import com.example.myapplication.item.PostListItem
 import com.example.myapplication.R
-import com.example.myapplication.com.example.myapplication.PostListAdapter
+import com.example.myapplication.Adapter.PostListAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
