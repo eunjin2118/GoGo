@@ -61,19 +61,20 @@ class CareerFragment : Fragment() {
                         .addOnSuccessListener { document ->
                             nickname = document.data!!.get("nickname").toString()
                         }
-                    postItemList.add(PostListItem(nickname, document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
+                    postItemList.add(PostListItem(document.id, nickname, document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
                 }
 
 
-                val postListAdapter = PostListAdapter(postItemList)
+                val postListAdapter = PostListAdapter(postItemList, requireParentFragment())
                 dataList?.adapter = postListAdapter
 
+                /*
                 postListAdapter.setItemClickListener(object: PostListAdapter.OnItemClickListener{
                     override fun onClick(v: View, position: Int) {
                         Toast.makeText(view.context,
                         "버튼 클릭됨", Toast.LENGTH_SHORT).show()
                     }
-                })
+                })*/
             }
 
 

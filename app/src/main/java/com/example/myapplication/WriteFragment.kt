@@ -58,10 +58,11 @@ class WriteFragment : Fragment() {
                 "nickname" to nickname,
                 "title" to title.text.toString(),
                 "content" to content.text.toString(),
-                "category" to categoryComboBox.selectedItem.toString(),
+                "category" to categoryComboBox.selectedItem.toString()
             )
 
-            db.collection("writes").document()
+            db.collection("writes")
+                .document()
                 .set(write)
                 .addOnSuccessListener {
                     Log.d("mytag", "등록 성공")
@@ -69,6 +70,7 @@ class WriteFragment : Fragment() {
                     content.setText("")
                     categoryComboBox.setSelection(0)
                     Toast.makeText(activity, "글 등록 성공!", Toast.LENGTH_SHORT).show()
+                    regisBtn.isEnabled = true
                 }
                 .addOnFailureListener {
                     e -> Log.d("mytag", "등록 실패")

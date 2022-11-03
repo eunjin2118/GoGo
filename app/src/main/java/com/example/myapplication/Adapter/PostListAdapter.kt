@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.item.PostListItem
 import com.example.myapplication.R
+import com.example.myapplication.container.HomeContainerFragment
 
-class PostListAdapter(val itemList: ArrayList<PostListItem>):
+class PostListAdapter(val itemList: ArrayList<PostListItem>, val fragment: Fragment):
     RecyclerView.Adapter<PostListAdapter.ViewHolder>(){
 
 
@@ -34,7 +36,9 @@ class PostListAdapter(val itemList: ArrayList<PostListItem>):
 
         holder.comment_btn.setOnClickListener {
             Log.d("mytag","${holder.comment_btn.toString()}가 클릭됨")
-            itemClickListener.onClick(it, position)
+            // itemClickListener.onClick(it, position)
+            val id = itemList[holder.adapterPosition].id
+            (fragment as HomeContainerFragment).toComment(id)
         }
     }
     // (4) 레이아웃 내 View 연결
@@ -46,6 +50,7 @@ class PostListAdapter(val itemList: ArrayList<PostListItem>):
         val comment_btn: Button = itemView.findViewById(R.id.comment_btn)
     }
 
+    /*
     // (2) 리스너 인터페이스
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
@@ -55,5 +60,5 @@ class PostListAdapter(val itemList: ArrayList<PostListItem>):
         this.itemClickListener = onItemClickListener
     }
     // (4) setItemClickListener로 설정한 함수 실행
-    private lateinit var itemClickListener : OnItemClickListener
+    private lateinit var itemClickListener : OnItemClickListener*/
 }

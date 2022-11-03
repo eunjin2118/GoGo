@@ -53,9 +53,8 @@ class EditProfileFragment : Fragment() {
         btn_edit_profile.setOnClickListener {
             db.collection("students").document(currentUser?.email.toString())
                 .update(mapOf(
-                    "nickname" to profile_name,
-                    "phonenum" to profile_phonenum
-
+                    "nickname" to profile_name.text.toString(),
+                    "phonenum" to profile_phonenum.text.toString()
                 ))
         }
 

@@ -2,21 +2,24 @@ package com.example.myapplication.tabfragment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.item.PostListItem
-import com.example.myapplication.R
 import com.example.myapplication.Adapter.PostListAdapter
-import com.example.myapplication.container.HomeContainerFragment
+import com.example.myapplication.R
+import com.example.myapplication.item.PostListItem
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 class AllFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -64,18 +67,26 @@ class AllFragment : Fragment() {
                 for (document in documents){
                     Log.d("mytag", "${document.id} => ${document.data}")
 
-                    postItemList.add(PostListItem(document.data!!.get("nickname").toString(), document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
+                    postItemList.add(PostListItem(document.id,
+                        document.data!!.get("nickname").toString(),
+                        document.data!!.get("category").toString(),
+                        document.data!!.get("title").toString(),
+                        document.data!!.get("content").toString()))
                 }
-                val postListAdapter = PostListAdapter(postItemList)
+                val postListAdapter = PostListAdapter(postItemList, requireParentFragment())
                 dataList?.adapter = postListAdapter
 
+
+
+
+                /*
                 postListAdapter.setItemClickListener(object: PostListAdapter.OnItemClickListener{
                     override fun onClick(v: View, position: Int) {
                         Toast.makeText(view.context,
                             "버튼 클릭됨", Toast.LENGTH_SHORT).show()
                         (parentFragment as HomeContainerFragment).toComment()
                     }
-                })
+                })*/
             }
     }
 

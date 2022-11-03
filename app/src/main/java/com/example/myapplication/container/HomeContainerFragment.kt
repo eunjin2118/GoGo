@@ -47,7 +47,7 @@ class HomeContainerFragment : Fragment() {
         childFragmentManager.beginTransaction().replace(R.id.container, SchoolFragment()).commit()
     }
 
-    fun toComment(){
-        childFragmentManager.beginTransaction().replace(R.id.container, CommentFragment()).commit()
+    fun toComment(writeId: String){
+        childFragmentManager.beginTransaction().replace(R.id.container, CommentFragment.newInstance(writeId)).commit()
     }
 }

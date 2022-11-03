@@ -49,17 +49,22 @@ class SchoolFragment : Fragment() {
                 for (document in documents){
                     Log.d("mytag", "${document.id} => ${document.data}")
 
-                    postItemList.add(PostListItem(document.data!!.get("nickname").toString(), document.data!!.get("category").toString(), document.data!!.get("title").toString(), document.data!!.get("content").toString()))
+                    postItemList.add(PostListItem(document.id,
+                        document.data!!.get("nickname").toString(),
+                        document.data!!.get("category").toString(),
+                        document.data!!.get("title").toString(),
+                        document.data!!.get("content").toString()))
                 }
-                val postListAdapter = PostListAdapter(postItemList)
+                val postListAdapter = PostListAdapter(postItemList, requireParentFragment())
                 dataList?.adapter = postListAdapter
 
+                /*
                 postListAdapter.setItemClickListener(object: PostListAdapter.OnItemClickListener{
                     override fun onClick(v: View, position: Int) {
                         Toast.makeText(view.context,
                             "버튼 클릭됨", Toast.LENGTH_SHORT).show()
                     }
-                })
+                })*/
             }
     }
 }
