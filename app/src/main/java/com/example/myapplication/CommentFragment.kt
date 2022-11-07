@@ -47,7 +47,6 @@ class CommentFragment : Fragment() {
         val dataList = view?.findViewById<RecyclerView>(R.id.comment_list)
         val cdata = view?.findViewById<EditText>(R.id.editText)
 
-
         auth = Firebase.auth
         val db = Firebase.firestore
         val writeId = requireArguments().getString("write_id")!!
