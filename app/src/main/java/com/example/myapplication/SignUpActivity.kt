@@ -80,8 +80,6 @@ class SignUpActivity : AppCompatActivity() {
                         signUpBtn.isEnabled = true // 버튼 다시 누르기
                     }
                 }
-
-
         }
 
 

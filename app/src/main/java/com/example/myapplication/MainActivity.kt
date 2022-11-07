@@ -40,6 +40,5 @@ class MainActivity : AppCompatActivity() {
             }
             selectedItemId = R.id.item_fragment2
         }
-
     }
 }

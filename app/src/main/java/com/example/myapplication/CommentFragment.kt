@@ -54,7 +54,7 @@ class CommentFragment : Fragment() {
         dataList?.layoutManager = LinearLayoutManager(requireContext())
 
         val write = hashMapOf(
-            "content" to "Hello"
+            "content" to cdata
         )
 
         db.collection("comments")
@@ -62,16 +62,6 @@ class CommentFragment : Fragment() {
             .collection("data")
             .document()
             .set(write)
-//        db.collection("writes")
-//            .document()
-//            .collection(view.toString())
-//            .document()
-//            .collection("coments")
-//            .get()
-//            .addOnSuccessListener { documents ->
-//
-//
-//            }
 
     }
 

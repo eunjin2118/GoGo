@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/comment_text"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="140dp"
             android:layout_width="match_parent"
