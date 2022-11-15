@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Adapter.CommentListAdapter
 import com.example.myapplication.item.CommentListItem
+import com.example.myapplication.item.PostListItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -62,6 +64,22 @@ class CommentFragment : Fragment() {
             .collection("data")
             .document()
             .set(write)
+
+        db.collection("comments")
+            .get()
+            .addOnSuccessListener { documents ->
+                val commentItemList = arrayListOf<CommentListItem>()
+                for(document in documents){
+                    Log.d("mytag", "${document.id} => ${document.data}")
+
+                    commentItemList.add(CommentListItem(
+                        document.id,
+                        "배욤",
+                        document.data!!.get("data").toString()),
+
+                    )
+                }
+            }
 
     }
 
