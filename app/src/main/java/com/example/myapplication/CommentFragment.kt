@@ -83,7 +83,6 @@ class CommentFragment : Fragment() {
 
     }
 
-
     companion object {
         fun newInstance(writeId: String): CommentFragment {
             val fragment = CommentFragment()
