@@ -34,12 +34,12 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <Button
+            android:id="@+id/add_comment"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="댓글"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editText"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/comment" />
 

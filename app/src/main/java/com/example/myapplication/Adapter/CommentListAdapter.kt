@@ -23,13 +23,13 @@ class CommentListAdapter(val itemList: ArrayList<CommentListItem>):
     // (3) View에 내용 입력
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = itemList[position].name
-        holder.date.text = itemList[position].date
+//        holder.date.text = itemList[position].date
         holder.content.text = itemList[position].content
     }
     // (4) 레이아웃 내 View 연결
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.comment_user_name)
         val content: TextView = itemView.findViewById(R.id.comment_content)
-        val date: TextView = itemView.findViewById(R.id.comment_date)
+//        val date: TextView = itemView.findViewById(R.id.comment_date)
     }
 }
