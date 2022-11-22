@@ -72,7 +72,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"/>
             <EditText
-                android:id="@+id/profile_phonenum"
+                android:id="@+id/profile_phone_num"
                 android:textSize="16dp"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"/>

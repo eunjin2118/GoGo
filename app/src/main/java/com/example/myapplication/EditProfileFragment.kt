@@ -39,10 +39,10 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btn_edit_profile = view.findViewById<Button>(R.id.btn_edit_profile)
+        val btnEditProfile = view.findViewById<Button>(R.id.btn_edit_profile)
 
-        val profile_name = view.findViewById<EditText>(R.id.profile_name)
-        val profile_phonenum = view.findViewById<EditText>(R.id.profile_phonenum)
+        val profileName = view.findViewById<EditText>(R.id.profile_name)
+        val profilePhone = view.findViewById<EditText>(R.id.profile_phone_num)
 
 
         val currentUser = auth.currentUser
@@ -50,11 +50,11 @@ class EditProfileFragment : Fragment() {
 
         val docRef = db.collection("students").document(currentUser?.email.toString())
 
-        btn_edit_profile.setOnClickListener {
+        btnEditProfile.setOnClickListener {
             db.collection("students").document(currentUser?.email.toString())
                 .update(mapOf(
-                    "nickname" to profile_name.text.toString(),
-                    "phonenum" to profile_phonenum.text.toString()
+                    "nickname" to profileName.text.toString(),
+                    "phonenum" to profilePhone.text.toString()
                 ))
             Log.d("mytag","all button select")
             (parentFragment as UserContainerFragment).Profile()
