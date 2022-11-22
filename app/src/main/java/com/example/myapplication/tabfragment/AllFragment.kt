@@ -24,7 +24,7 @@ import com.google.firebase.ktx.Firebase
 class AllFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     var count : Boolean = false;
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +44,7 @@ class AllFragment : Fragment() {
 //                count = false
 //            }
 //        }
-        
+
         return view
     }
 

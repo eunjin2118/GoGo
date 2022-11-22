@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- hide share button by default -->
-<!--    <item-->
-<!--        android:id="@+id/menu_action_search"-->
-<!--        android:icon="@drawable/ic_search"-->
-<!--        android:title="Search"-->
-<!--        app:showAsAction="collapseActionView|ifRoom"-->
-<!--        android:actionViewClass="androidx.appcompat.widget.SearchView"-->
-
-<!--        />-->
+    <item
+        android:id="@+id/menu_action_search"
+        android:icon="@drawable/ic_search"
+        android:title="Search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.SearchView" />
 </menu>

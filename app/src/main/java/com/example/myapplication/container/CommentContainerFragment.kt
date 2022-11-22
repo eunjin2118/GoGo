@@ -21,7 +21,7 @@ class CommentContainerFragment: Fragment (){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        // 댓글 프래그먼트 연결하는 부분
         childFragmentManager.beginTransaction().add(R.id.container, CommentFragment.newInstance()).commit()
     }
 
