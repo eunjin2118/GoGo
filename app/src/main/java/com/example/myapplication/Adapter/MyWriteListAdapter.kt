@@ -4,11 +4,14 @@ import com.example.myapplication.item.ListItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.google.firebase.firestore.FirebaseFirestore
 
-class MyWriteListAdapter(val itemList: ArrayList<ListItem>):
+
+class MyWriteListAdapter(val itemList: ArrayList<ListItem>, val db: FirebaseFirestore):
     RecyclerView.Adapter<MyWriteListAdapter.ViewHolder>(){
 
     // (1) 아이템 레이아웃과 결합
@@ -24,10 +27,18 @@ class MyWriteListAdapter(val itemList: ArrayList<ListItem>):
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = itemList[position].name
         holder.category.text = itemList[position].category
+        holder.deleteBtn.setOnClickListener {
+            val id = itemList[holder.adapterPosition].id
+            db.collection("writes").document(id).delete().addOnSuccessListener {
+
+            }
+        }
     }
     // (4) 레이아웃 내 View 연결
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.tv_name)
         val category: TextView = itemView.findViewById(R.id.tv_category)
+        val deleteBtn: Button = itemView.findViewById(R.id.my_write_delete)
+
     }
 }

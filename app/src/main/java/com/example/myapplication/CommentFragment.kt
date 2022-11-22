@@ -30,18 +30,6 @@ class CommentFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_comment, container, false)
 
-       // dataList?.layoutManager = LinearLayoutManager(requireContext())
-       // dataList?.adapter = commentListAdapter
-
-        /*
-        commentItemList.add(CommentListItem("꼬꼬빼빼", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("미리미", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("안드로이드", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("안드로이드", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("안드로이드", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("안드로이드", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        */
-
         return view
     }
 

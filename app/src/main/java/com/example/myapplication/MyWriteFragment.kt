@@ -12,6 +12,7 @@ import com.example.myapplication.Adapter.MyWriteListAdapter
 import com.example.myapplication.item.ListItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -30,7 +31,9 @@ class MyWriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataList = view?.findViewById<RecyclerView>(R.id.rv_list)
+        val dataList = view.findViewById<RecyclerView>(R.id.rv_list)
+
+        // val deleteBtn = view.findViewById<RecyclerView>(R.id.my_write_delete)
 
         auth = Firebase.auth
 
@@ -50,11 +53,32 @@ class MyWriteFragment : Fragment() {
                     Log.d("mytag", "${document.id} => ${document.data}")
                     // 아이템 추가
 
-                    itemList.add(ListItem(document.data!!.get("title").toString(), document.data!!.get("category").toString()))
+                    itemList.add(ListItem(document.id, document.data!!.get("title").toString(), document.data!!.get("category").toString()))
                 }
-                val listAdapter = MyWriteListAdapter(itemList)
+                val listAdapter = MyWriteListAdapter(itemList, db)
                 dataList?.adapter = listAdapter
+
+                db.collection("writes")
+                    .whereEqualTo("id", currentUser?.email.toString())
+                    .addSnapshotListener { documents, e ->
+                        Log.d("mytag", "in addSnapshotListener")
+                        val itemList = arrayListOf<ListItem>()
+                        for (document in documents!!) {
+                            Log.d("mytag", "${document.id} => ${document.data}")
+                            // 아이템 추가
+
+                            itemList.add(ListItem(document.id, document.data!!.get("title").toString(), document.data!!.get("category").toString()))
+                        }
+                        val listAdapter = MyWriteListAdapter(itemList, db)
+                        dataList?.adapter = listAdapter
+                    }
             }
+
+//
+//        deleteBtn.setOnClickListener{
+//            db.collection("writes")
+//
+//        }
 
     }
 }
