@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CommentFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -30,18 +32,6 @@ class CommentFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_comment, container, false)
 
-       // dataList?.layoutManager = LinearLayoutManager(requireContext())
-       // dataList?.adapter = commentListAdapter
-
-        /*
-        commentItemList.add(CommentListItem("꼬꼬빼빼", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("미리미", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("안드로이드", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("안드로이드", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("안드로이드", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        commentItemList.add(CommentListItem("안드로이드", "와 미친 ㄷㄷ 대박이다", "2022-10-20"))
-        */
-
         return view
     }
 
@@ -50,6 +40,13 @@ class CommentFragment : Fragment() {
 
         val dataList = view.findViewById<RecyclerView>(R.id.comment_list)
         val cdata = view.findViewById<EditText>(R.id.comment_text)
+        val date = view.findViewById<TextView>(R.id.comment_date);
+
+        val tDate = Date(System.currentTimeMillis())
+        val tDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm E", Locale("ko", "KR"))
+        val strDate = tDateFormat.format(tDate)
+        Log.d("mytag",strDate)
+
         auth = Firebase.auth
         val db = Firebase.firestore
         val writeId = requireArguments().getString("write_id")!!
@@ -69,7 +66,8 @@ class CommentFragment : Fragment() {
         view.findViewById<Button>(R.id.add_comment).setOnClickListener {
             val write = hashMapOf(
                 "name" to name,
-                "content" to cdata.text.toString()
+                "content" to cdata.text.toString(),
+                "date" to strDate.toString()
             )
 
             db.collection("writes")
@@ -88,8 +86,9 @@ class CommentFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
                 val commentItemList = arrayListOf<CommentListItem>()
+
                 for (comment in documents){
-                    commentItemList.add(CommentListItem(comment.data!!.get("name").toString(), comment.data!!.get("content").toString()))
+                    commentItemList.add(CommentListItem(comment.data!!.get("name").toString(), comment.data!!.get("content").toString(), comment.data!!.get("date").toString()))
                 }
                 val commentListAdapter = CommentListAdapter(commentItemList)
                 dataList?.adapter = commentListAdapter

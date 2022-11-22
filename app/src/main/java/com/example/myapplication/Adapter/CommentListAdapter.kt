@@ -19,16 +19,13 @@ class CommentListAdapter(val itemList: ArrayList<CommentListItem>):
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
 
-        val date = view.findViewById<TextView>(R.id.comment_date);
+//        val date = view.findViewById<TextView>(R.id.comment_date);
 
-        // 현재 시간을 Date 타입으로 변환
-
-
-        val tDate = Date(System.currentTimeMillis())
-        val tDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm E", Locale("ko", "KR"))
-        val strDate = tDateFormat.format(tDate)
-        date.text = strDate+"요일"
-        Log.d("mytag",strDate)
+//        val tDate = Date(System.currentTimeMillis())
+//        val tDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm E", Locale("ko", "KR"))
+//        val strDate = tDateFormat.format(tDate)
+//        date.text = strDate+"요일"
+//        Log.d("mytag",strDate)
 
         return ViewHolder(view)
     }
@@ -39,7 +36,7 @@ class CommentListAdapter(val itemList: ArrayList<CommentListItem>):
     // (3) View에 내용 입력
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = itemList[position].name
-//        holder.date.text = itemList[position].date
+        holder.date.text = itemList[position].date
         holder.content.text = itemList[position].content
 
     }
@@ -47,6 +44,6 @@ class CommentListAdapter(val itemList: ArrayList<CommentListItem>):
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.comment_user_name)
         val content: TextView = itemView.findViewById(R.id.comment_content)
-//        val date: TextView = itemView.findViewById(R.id.comment_date)
+        val date: TextView = itemView.findViewById(R.id.comment_date)
     }
 }
