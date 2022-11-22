@@ -34,4 +34,8 @@ class UserContainerFragment : Fragment() {
         childFragmentManager.beginTransaction().replace(R.id.container, EditProfileFragment()).commit()
     }
 
+    fun Profile(){
+        childFragmentManager.beginTransaction().replace(R.id.container, UserFragment()).commit()
+    }
+
 }
