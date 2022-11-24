@@ -44,20 +44,23 @@ class EditProfileFragment : Fragment() {
         val profileName = view.findViewById<EditText>(R.id.profile_name)
         val profilePhone = view.findViewById<EditText>(R.id.profile_phone_num)
 
-
         val currentUser = auth.currentUser
         var db = Firebase.firestore
 
         val docRef = db.collection("students").document(currentUser?.email.toString())
 
         btnEditProfile.setOnClickListener {
-            db.collection("students").document(currentUser?.email.toString())
-                .update(mapOf(
-                    "nickname" to profileName.text.toString(),
-                    "phonenum" to profilePhone.text.toString()
-                ))
+            if(profileName.text.toString().length != 0){
+                db.collection("students").document(currentUser?.email.toString())
+                    .update(mapOf(
+                        "nickname" to profileName.text.toString(),
+                        "phonenum" to profilePhone.text.toString()
+                    ))
+                (parentFragment as UserContainerFragment).Profile()
+            } else {
+                Toast.makeText(activity, " 이름 또는 전화번호를 입력해주세요", Toast.LENGTH_SHORT).show()
+            }
             Log.d("mytag","all button select")
-            (parentFragment as UserContainerFragment).Profile()
 
         }
 
