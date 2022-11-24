@@ -50,7 +50,7 @@ class EditProfileFragment : Fragment() {
         val docRef = db.collection("students").document(currentUser?.email.toString())
 
         btnEditProfile.setOnClickListener {
-            if(profileName.text.toString().length != 0){
+            if(profileName.text.toString().length != 0 || profilePhone.text.toString().length != 0){
                 db.collection("students").document(currentUser?.email.toString())
                     .update(mapOf(
                         "nickname" to profileName.text.toString(),
