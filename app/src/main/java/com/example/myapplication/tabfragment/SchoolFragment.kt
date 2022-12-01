@@ -49,7 +49,8 @@ class SchoolFragment : Fragment() {
                 for (document in documents){
                     Log.d("mytag", "${document.id} => ${document.data}")
 
-                    postItemList.add(PostListItem(document.id,
+                    postItemList.add(PostListItem(
+                        document.id,
                         document.data!!.get("nickname").toString(),
                         document.data!!.get("category").toString(),
                         document.data!!.get("title").toString(),

@@ -37,20 +37,6 @@ class AllFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_all, container, false)
-        // val heartBtn = view.findViewById<Button>(R.id.heart_btn)
-        // var heartNum : Int = heartBtn.text.toString().toInt()
-        // Log.d("mytag", heartNum.toString())
-//        heartBtn.setOnClickListener {
-//            if(!count){    // 공감 추가 되야될때
-////                heartNum++
-//                Log.d("mytag","공감 버튼 클릭")
-//                count = true
-//            }else { // 공감 감소 되야 될때
-////                heartNum--
-//                Log.d("mytag","공감 버튼 클릭 취소")
-//                count = false
-//            }
-//        }
 
         return view
     }
@@ -74,25 +60,7 @@ class AllFragment : Fragment() {
                 for (document in documents){
                     Log.d("mytag", "${document.id} => ${document.data}")
 
-                    view.findViewById<TextView>(R.id.profile_email).text = currentUser?.email.toString()
-
-                    val ref = storageRef.child(currentUser?.email.toString() + "/profile")
-                    val localFile = File.createTempFile("profile", "")
-                    // getFile 호출 이후 다운로드 시작
-                    val downloadTask = ref.getFile(localFile)
-
-                    downloadTask.addOnSuccessListener {
-                        Log.d("mytag", "downloadTask success")
-                        // 3. 그 바이트를 Bitmap 이미지로 변환하고
-                        val bytes = localFile.readBytes()
-                        Log.d("mytag", bytes.size.toString())
-                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                        // 4. 그 Bitmap을 ImageView로 소스로 설정하기
-                        view.findViewById<ImageView>(R.id.temp_img).setImageBitmap(bitmap)
-                    }
-
                     postItemList.add(PostListItem(
-                        1,
                         document.id,
                         document.data!!.get("nickname").toString(),
                         document.data!!.get("category").toString(),

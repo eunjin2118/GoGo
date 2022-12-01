@@ -38,7 +38,7 @@ class PostListAdapter(val itemList: ArrayList<PostListItem>, val fragment: Fragm
         holder.kind.text = itemList[position].kind
         holder.title.text = itemList[position].title
         holder.content.text = itemList[position].content
-        holder.profile.setImageResource(itemList.get(position).profile)
+       // holder.profile.setImageResource(itemList.get(position).profile)
 
         holder.comment_btn.setOnClickListener {
             Log.d("mytag","${holder.comment_btn.toString()}가 클릭됨")
@@ -71,7 +71,7 @@ class PostListAdapter(val itemList: ArrayList<PostListItem>, val fragment: Fragm
         val content: TextView = itemView.findViewById(R.id.post_story)
         val comment_btn: Button = itemView.findViewById(R.id.comment_btn)
         val heart_count: Button = itemView.findViewById(R.id.heart_btn)
-        val profile: ImageView = itemView.findViewById(R.id.user_img)
+        //val profile: ImageView = itemView.findViewById(R.id.user_img)
     }
 
     /*
