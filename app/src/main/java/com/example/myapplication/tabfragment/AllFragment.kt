@@ -1,10 +1,13 @@
 package com.example.myapplication.tabfragment
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,10 +22,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 
 class AllFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
+    private val storage = Firebase.storage
+    private var storageRef = storage.reference
     var count : Boolean = false;
 
     override fun onCreateView(
@@ -56,7 +63,7 @@ class AllFragment : Fragment() {
         auth = Firebase.auth
 
         val db = Firebase.firestore
-
+        val currentUser = auth.currentUser
 
         dataList?.layoutManager = LinearLayoutManager(requireContext())
 
@@ -67,7 +74,26 @@ class AllFragment : Fragment() {
                 for (document in documents){
                     Log.d("mytag", "${document.id} => ${document.data}")
 
-                    postItemList.add(PostListItem(document.id,
+                    view.findViewById<TextView>(R.id.profile_email).text = currentUser?.email.toString()
+
+                    val ref = storageRef.child(currentUser?.email.toString() + "/profile")
+                    val localFile = File.createTempFile("profile", "")
+                    // getFile 호출 이후 다운로드 시작
+                    val downloadTask = ref.getFile(localFile)
+
+                    downloadTask.addOnSuccessListener {
+                        Log.d("mytag", "downloadTask success")
+                        // 3. 그 바이트를 Bitmap 이미지로 변환하고
+                        val bytes = localFile.readBytes()
+                        Log.d("mytag", bytes.size.toString())
+                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        // 4. 그 Bitmap을 ImageView로 소스로 설정하기
+                        view.findViewById<ImageView>(R.id.temp_img).setImageBitmap(bitmap)
+                    }
+
+                    postItemList.add(PostListItem(
+                        1,
+                        document.id,
                         document.data!!.get("nickname").toString(),
                         document.data!!.get("category").toString(),
                         document.data!!.get("title").toString(),
