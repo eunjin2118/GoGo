@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.ContentValues
@@ -68,21 +69,23 @@ class EditProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == 2000) {
-            val selectedImageURI : Uri = data?.data!!
-            Log.d("mytag", selectedImageURI.toString())
-            val inputStream = requireActivity().contentResolver.openInputStream(selectedImageURI)!!
+            if(resultCode == Activity.RESULT_OK) {
+                val selectedImageURI: Uri = data?.data!!
+                Log.d("mytag", selectedImageURI.toString())
+                val inputStream =
+                    requireActivity().contentResolver.openInputStream(selectedImageURI)!!
 
-            // val contentResolver: ContentResolver = requireActivity().contentResolver
-            // val mimeTypeMap = MimeTypeMap.getSingleton()
-            // val extension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(selectedImageURI))
-            // Log.d("mytag", extension.toString())
-            val fileRef = storageRef.child("${auth.currentUser!!.email}/profile")
+                // val contentResolver: ContentResolver = requireActivity().contentResolver
+                // val mimeTypeMap = MimeTypeMap.getSingleton()
+                // val extension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(selectedImageURI))
+                // Log.d("mytag", extension.toString())
+                val fileRef = storageRef.child("${auth.currentUser!!.email}/profile")
 
-            // val stream = FileInputStream(File(selectedImageURI.path))
-            fileRef.putStream(inputStream).addOnSuccessListener {
-                Log.d("mytag", "success")
+                // val stream = FileInputStream(File(selectedImageURI.path))
+                fileRef.putStream(inputStream).addOnSuccessListener {
+                    Log.d("mytag", "success")
+                }
             }
-
 
         }
     }

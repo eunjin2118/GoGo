@@ -3,23 +3,22 @@ package com.example.myapplication
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplication.container.UserContainerFragment
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ListResult
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.nio.ByteBuffer
@@ -74,7 +73,7 @@ class UserFragment : Fragment() {
         docRef.get()
             .addOnSuccessListener { document ->
                 val ref = storageRef.child(currentUser?.email.toString() + "/profile")
-                val localFile = File("temp", "profile")
+                val localFile = File.createTempFile("profile", "")
                 // getFile 호출 이후 다운로드 시작
                 val downloadTask = ref.getFile(localFile)
 
@@ -92,15 +91,18 @@ class UserFragment : Fragment() {
 //                    })
 
                 downloadTask.addOnSuccessListener {
-
+                    Log.d("mytag", "downloadTask success")
                     // 3. 그 바이트를 Bitmap 이미지로 변환하고
-//                    val bytes = localFile.readBytes()
-////                    val bitmap = (imageView.getDrawable() as BitmapDrawable).bitmap
+                    val bytes = localFile.readBytes()
+                    Log.d("mytag", bytes.size.toString())
+                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    view.findViewById<ImageView>(R.id.user_img2).setImageBitmap(bitmap)
+//                    val bitmap = (imageView.getDrawable() as BitmapDrawable).bitmap
 //                    var decryptedText: ByteArray = cipher.doFinal(bytes)
 //                    val configBmp = Bitmap.Config.valueOf(bitmap.config.name)
 //                    val bitmap_tmp = Bitmap.createBitmap(width, height, configBmp)
 //                    val buffer = ByteBuffer.wrap(decryptedText)
-//                    bitmap_tmp.copyPixelsFromBuffer(buffer)
+                    // bitmap_tmp.copyPixelsFromBuffer(buffer)
 
                     // 4. 그 Bitmap을 ImageView로 소스로 설정하기
                 }

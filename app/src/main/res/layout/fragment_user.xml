@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
+            android:id="@+id/user_img2"
             android:src="@drawable/user_img2"
             android:layout_marginTop="15dp"
             android:layout_gravity="center"
