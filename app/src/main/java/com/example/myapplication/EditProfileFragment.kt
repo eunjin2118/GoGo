@@ -6,6 +6,8 @@ import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.myapplication.container.UserContainerFragment
@@ -25,6 +24,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 
 class EditProfileFragment : Fragment() {
@@ -75,15 +75,22 @@ class EditProfileFragment : Fragment() {
                 val inputStream =
                     requireActivity().contentResolver.openInputStream(selectedImageURI)!!
 
-                // val contentResolver: ContentResolver = requireActivity().contentResolver
-                // val mimeTypeMap = MimeTypeMap.getSingleton()
-                // val extension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(selectedImageURI))
-                // Log.d("mytag", extension.toString())
                 val fileRef = storageRef.child("${auth.currentUser!!.email}/profile")
 
-                // val stream = FileInputStream(File(selectedImageURI.path))
                 fileRef.putStream(inputStream).addOnSuccessListener {
                     Log.d("mytag", "success")
+                    val localFile = File.createTempFile("profile", "")
+                    val downloadTask = fileRef.getFile(localFile)
+
+                    downloadTask.addOnSuccessListener {
+                        Log.d("mytag", "downloadTask success")
+                        // 3. 그 바이트를 Bitmap 이미지로 변환하고
+                        val bytes = localFile.readBytes()
+                        Log.d("mytag", bytes.size.toString())
+                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        // 4. 그 Bitmap을 ImageView로 소스로 설정하기
+                        view?.findViewById<ImageView>(R.id.temp_img)?.setImageBitmap(bitmap)
+                    }
                 }
             }
 
@@ -163,8 +170,23 @@ class EditProfileFragment : Fragment() {
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    view.findViewById<TextView>(R.id.profile_email).text =
-                        currentUser?.email.toString()
+
+                    view.findViewById<TextView>(R.id.profile_email).text = currentUser?.email.toString()
+
+                    val ref = storageRef.child(currentUser?.email.toString() + "/profile")
+                    val localFile = File.createTempFile("profile", "")
+                    // getFile 호출 이후 다운로드 시작
+                    val downloadTask = ref.getFile(localFile)
+
+                    downloadTask.addOnSuccessListener {
+                        Log.d("mytag", "downloadTask success")
+                        // 3. 그 바이트를 Bitmap 이미지로 변환하고
+                        val bytes = localFile.readBytes()
+                        Log.d("mytag", bytes.size.toString())
+                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        // 4. 그 Bitmap을 ImageView로 소스로 설정하기
+                        view.findViewById<ImageView>(R.id.temp_img).setImageBitmap(bitmap)
+                    }
                 }
             }
             // 값이 없으면 널 리턴, 실패한거는

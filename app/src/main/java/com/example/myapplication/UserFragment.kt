@@ -77,34 +77,14 @@ class UserFragment : Fragment() {
                 // getFile 호출 이후 다운로드 시작
                 val downloadTask = ref.getFile(localFile)
 
-//                ref.listAll()
-//                    .addOnSuccessListener(OnSuccessListener<ListResult> { result ->
-//                        for (fileRef in result.items) {
-//                            ref.child("${fileRef.name}").downloadUrl.addOnCompleteListener {
-//                                if (it.isSuccessful) { // ALLIMGS는 key가 string, 값이 imageView인 해시맵이다.
-//                                    Glide.with(this).asBitmap().load(it.result)
-//                                        .into(object :BitmapImageViewTarget(AllIMGS["${fileRef.name}"]) {});
-//
-//                                }
-//                            }
-//                        }
-//                    })
-
                 downloadTask.addOnSuccessListener {
                     Log.d("mytag", "downloadTask success")
                     // 3. 그 바이트를 Bitmap 이미지로 변환하고
                     val bytes = localFile.readBytes()
                     Log.d("mytag", bytes.size.toString())
                     val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                    view.findViewById<ImageView>(R.id.user_img2).setImageBitmap(bitmap)
-//                    val bitmap = (imageView.getDrawable() as BitmapDrawable).bitmap
-//                    var decryptedText: ByteArray = cipher.doFinal(bytes)
-//                    val configBmp = Bitmap.Config.valueOf(bitmap.config.name)
-//                    val bitmap_tmp = Bitmap.createBitmap(width, height, configBmp)
-//                    val buffer = ByteBuffer.wrap(decryptedText)
-                    // bitmap_tmp.copyPixelsFromBuffer(buffer)
-
                     // 4. 그 Bitmap을 ImageView로 소스로 설정하기
+                    view.findViewById<ImageView>(R.id.user_img2).setImageBitmap(bitmap)
                 }
 
                 if (document != null) {
