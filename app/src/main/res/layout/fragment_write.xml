@@ -31,12 +31,12 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="350dp"
-        android:layout_height="2dp"
-        android:background="#7291FF"/>
+<!--    <View-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_width="350dp"-->
+<!--        android:layout_height="2dp"-->
+<!--        android:background="#7291FF"/>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -49,15 +49,16 @@
             android:layout_height="wrap_content"
             android:text="제목"
             android:textSize="18dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:layout_marginLeft="30dp"/>
 
         <EditText
             android:id="@+id/input_title"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
+            android:background="@null"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
             android:layout_marginRight="50dp"
             android:hint="제목을 입력하시오"
             android:textSize="18dp" />
@@ -81,14 +82,14 @@
             android:layout_height="wrap_content"
             android:text="주제"
             android:textSize="18dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="50dp"
             android:layout_marginLeft="30dp"/>
 
         <Spinner
             android:id="@+id/categoryComboBox"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="20dp"
             android:layout_weight="3"
@@ -105,7 +106,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginTop="240dp">
 
         <TextView
@@ -118,11 +119,12 @@
 
         <EditText
             android:id="@+id/input_content"
-            android:layout_width="280dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
+            android:background="@null"
             android:hint="내용을 입력하시오"
             android:textSize="18dp" />
     </LinearLayout>

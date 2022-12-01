@@ -98,7 +98,7 @@ class UserFragment : Fragment() {
                     Log.d(TAG, "No such document")
                 }
             }
-                // 값이 없으면 널 리턴, 실패한거는
+            // 값이 없으면 널 리턴, 실패한거는
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
